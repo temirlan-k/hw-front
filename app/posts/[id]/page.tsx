@@ -1,9 +1,9 @@
+// pages/posts/[id].tsx
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { fetchPostById } from '../services/api';
+import { useParams } from 'next/navigation';
+import { fetchPostById } from '../../services/api';
 
-// Define the Post interface
 interface Post {
     id: number;
     title: string;
@@ -11,20 +11,24 @@ interface Post {
 }
 
 const PostDetail = () => {
-    const router = useRouter();
-    const { postId } = router.query;
+    const params = useParams();
+    const id = Array.isArray(params.id) ? params.id[0] : params.id;
     const [post, setPost] = useState<Post | null>(null);
 
     useEffect(() => {
-        if (postId) {
-            const getPost = async () => {
-                const data = await fetchPostById(postId);
-                setPost(data);
-            };
+        if (id) {
+            const postId = parseInt(id, 10);
 
-            getPost();
+            if (!isNaN(postId)) {
+                const getPost = async () => {
+                    const data = await fetchPostById(postId);
+                    setPost(data);
+                };
+
+                getPost();
+            }
         }
-    }, [postId]);
+    }, [id]);
 
     if (!post) return <p>Loading...</p>;
 

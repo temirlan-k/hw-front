@@ -1,7 +1,7 @@
 // page.tsx
 import Image from "next/image";
 import axios from 'axios';
-import PostPages from "./pages/posts/posts";
+import PostPages from "./posts/page";
 import Header from "./components/Header";
 
 export default function Home() {

@@ -2,7 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { fetchPosts } from '../../services/api';
+import { fetchPosts } from '../services/api';
 
 interface Post {
     id: number;
